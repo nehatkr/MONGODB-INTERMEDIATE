@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
+const productsRoutes = require('./routes/products-routes')
 
 const app = express();
 // connect mongodb
@@ -11,6 +12,8 @@ mongoose
 
 //   use middle ware
 app.use(express.json());
+
+app.use('/products', productsRoutes)
 
 app.listen(process.env.PORT, ()=>{
 console.log(`Server is now running on the port ${process.env.PORT}`)
