@@ -3,14 +3,25 @@ const Product = require("../models/Product");
 const getProductStats = async (req, res) => {
   try {
     const result = await Product.aggregate([
-      {
+      { //stage1:filter
         $match: {
           inStock: false,
           price: {
             $gte: 100,
           },
         },
-      },
+      }, //Stage2 : grouping the product based on the category
+      {
+        $group:{
+            _id: "$category",
+            avgPrice: {
+                $avg: "$price"
+            },
+            count: {
+                $sum : 1,
+            }
+        }
+      }
     ]);
 
     res.status(200).json({
@@ -25,6 +36,29 @@ const getProductStats = async (req, res) => {
     });
   }
 };
+
+const getProductAnalysis = async(req, res)=>{
+    try{
+        const result = await Product.aggregate([
+            {
+                $match : {
+                     category: " Electronics"
+                }
+            }
+        ])
+
+        res.status(200).json({
+            success: true,
+            data: result
+        })
+    }catch(e){
+           console.log(e);
+        res.status(500).json({
+            success: false,
+            message: 'Some error occured!'
+        })
+    }
+}
 
 const insertSampleProducts = async (req, res) => {
   try {
@@ -78,4 +112,4 @@ const insertSampleProducts = async (req, res) => {
     });
   }
 };
-module.exports = { insertSampleProducts, getProductStats };
+module.exports = { insertSampleProducts, getProductStats ,getProductAnalysis};
