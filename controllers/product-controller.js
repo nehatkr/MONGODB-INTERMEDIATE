@@ -59,9 +59,23 @@ const getProductAnalysis = async(req, res)=>{
                     },
                     minProductPrice : {
                         $min : "$price"
+                    },
+                }
+            },
+            {
+                $project:{
+                    _id : 0,
+                    totalRevenue: 1,
+                    averagePrice : 1,
+                    maxProducrtPrice : 1,
+                    minProductPrice: 1,
+                    priceRange: {
+                        $subtract : ["$maxProductPrice", "$minProductPrice"]
                     }
                 }
             }
+            
+
         ])
 
         res.status(200).json({
