@@ -1,0 +1,8 @@
+-install express
+-connect to db
+-created a model of products
+-created a product controller
+-implement routing in server.js
+-then created a route for product
+-create two more models book and author 
+-created a book route and book controller
