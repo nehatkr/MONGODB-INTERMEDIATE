@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const productsRoutes = require('./routes/products-routes')
+const bookRoutes = require('./routes/book-routes')
 
 const app = express();
 // connect mongodb
@@ -14,6 +15,7 @@ mongoose
 app.use(express.json());
 
 app.use('/products', productsRoutes)
+app.use('/referance', bookRoutes)
 
 app.listen(process.env.PORT, ()=>{
 console.log(`Server is now running on the port ${process.env.PORT}`)

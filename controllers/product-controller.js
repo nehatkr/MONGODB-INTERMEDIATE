@@ -143,4 +143,4 @@ const insertSampleProducts = async (req, res) => {
     });
   }
 };
-module.exports = { insertSampleProducts, getProductStats ,getProductAnalysis};
+module.exports = { insertSampleProducts, getProductStats ,getProductAnalysis}
